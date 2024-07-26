@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Fonts\SourceSans3-Bold.ttf" />
+    <None Remove="Assets\Fonts\SourceSans3-Medium.ttf" />
+    <None Remove="Assets\Fonts\SourceSans3-Regular.ttf" />
+    <None Remove="Assets\Fonts\SourceSans3-SemiBold.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\Fonts\SourceSans3-Bold.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\SourceSans3-Medium.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\SourceSans3-Regular.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\SourceSans3-SemiBold.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\RadioButton.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\ComboBox.axaml" />
+  </ItemGroup>
+
+</Project>

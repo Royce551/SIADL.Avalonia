@@ -1,0 +1,153 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}" />
+    <Setter Property="Background" Value="{DynamicResource ControlColor}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource PrimaryTextColor}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ControlColor}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource AccentColor}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Padding" Value="5,1" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
+    <Setter Property="FontFamily" Value="avares://SIADL.Avalonia/Assets/Fonts#Source Sans 3"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Panel>
+            <Border
+              Name="PART_BorderElement"
+              Background="{DynamicResource ControlColor}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              CornerRadius="3"
+              MinWidth="{TemplateBinding MinWidth}"
+              MinHeight="{TemplateBinding MinHeight}">
+            </Border>
+
+            <Border
+              Margin="{TemplateBinding BorderThickness}">
+              <Grid ColumnDefinitions="Auto,*,Auto" >
+                <ContentPresenter Grid.Column="0" Grid.ColumnSpan="1" Content="{TemplateBinding InnerLeftContent}"/>
+                <DockPanel x:Name="PART_InnerDockPanel" Grid.Column="1" Grid.ColumnSpan="1" Margin="{TemplateBinding Padding}">
+                  <!--<TextBlock Name="PART_FloatingWatermark"
+                         Foreground="{DynamicResource PrimaryTextColor}"
+                         FontSize="{TemplateBinding FontSize}"
+                         Text="{TemplateBinding Watermark}"
+                         DockPanel.Dock="Top" />-->
+                  <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                          AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+                    <Panel>
+                      <TextBlock Name="PART_Watermark"
+                          Opacity="0.5"
+                          Text="{TemplateBinding Watermark}"
+                          TextAlignment="{TemplateBinding TextAlignment}"
+                          TextWrapping="{TemplateBinding TextWrapping}"
+                          IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                      <!-- TODO eliminate this margin... text layout issue? -->
+                      <TextPresenter Name="PART_TextPresenter"
+                              Margin="0 1 0 0"
+                              Text="{TemplateBinding Text, Mode=TwoWay}"
+                              CaretIndex="{TemplateBinding CaretIndex}"
+                              SelectionStart="{TemplateBinding SelectionStart}"
+                              SelectionEnd="{TemplateBinding SelectionEnd}"
+                              TextAlignment="{TemplateBinding TextAlignment}"
+                              TextWrapping="{TemplateBinding TextWrapping}"
+                              PasswordChar="{TemplateBinding PasswordChar}"
+                              RevealPassword="{TemplateBinding RevealPassword}"
+                              SelectionBrush="{TemplateBinding SelectionBrush}"
+                              SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                              CaretBrush="{TemplateBinding CaretBrush}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Panel>
+                  </ScrollViewer>
+                </DockPanel>
+                <ContentPresenter Grid.Column="2" Grid.ColumnSpan="1" Content="{TemplateBinding InnerRightContent}"/>
+              </Grid>
+            </Border>
+          </Panel>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Border#PART_BorderElement">
+      <Setter Property="Transitions">
+        <Transitions>
+          <BrushTransition Property="Background" Duration="0:0:0.1"/>
+          <BrushTransition Property="BorderBrush" Duration="0:0:0.1"/>
+        </Transitions>
+      </Setter>
+    </Style>
+
+    <!-- Disabled State -->
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.25"/>
+    </Style>
+
+    <!-- Focused State -->
+    <Style Selector="^:focus">
+      <Style Selector="^ /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentColor}"/>
+      </Style>
+    </Style>
+
+    <!-- PointerOver State-->
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentColorHigh}"/>
+      </Style>
+    </Style>
+
+    
+
+    <Style Selector="^:error /template/ Border#PART_BorderElement">
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlErrorTextForegroundBrush}"/>
+    </Style>
+
+    <Style Selector="^ /template/ TextBlock#PART_FloatingWatermark">
+      <Setter Property="Cursor" Value="IBeam"/>
+    </Style>
+
+    <Style Selector="^[UseFloatingWatermark=true]:not(:empty) /template/ TextBlock#PART_FloatingWatermark">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="^.revealPasswordButton[AcceptsReturn=False][IsReadOnly=False]:not(TextBox:empty)">
+      <Setter Property="InnerRightContent">
+        <Template>
+          <ToggleButton Theme="{StaticResource FluentTextBoxToggleButton}"
+                        IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}"
+                        ClipToBounds="True">
+            <Panel>
+              <PathIcon Data="{StaticResource PasswordBoxRevealButtonData}"
+                        Height="8" Width="12"
+                        IsVisible="{Binding !$parent[ToggleButton].IsChecked}"/>
+              <PathIcon Data="{StaticResource PasswordBoxHideButtonData}"
+                        Height="12" Width="12"
+                        IsVisible="{Binding $parent[ToggleButton].IsChecked}"/>
+            </Panel>
+          </ToggleButton>
+        </Template>
+      </Setter>
+    </Style>
+
+    <Style Selector="^.clearButton[AcceptsReturn=False][IsReadOnly=False]:focus:not(TextBox:empty)">
+      <Setter Property="InnerRightContent">
+        <Template>
+          <Button Theme="{StaticResource FluentTextBoxButton}"
+                  Command="{Binding $parent[TextBox].Clear}"
+                  ClipToBounds="True">
+            <PathIcon Data="{StaticResource TextBoxClearButtonData}" Height="10" Width="10"/>
+          </Button>
+        </Template>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

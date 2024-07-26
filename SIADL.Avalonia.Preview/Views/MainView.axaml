@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SIADL.Avalonia.Preview.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SIADL.Avalonia.Preview.Views.MainView" Background="{DynamicResource ForegroundColor}"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="Button.controlcolored">
+      <Setter Property="Background" Value="{DynamicResource AccentColor}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AccentColor}" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColorOverAccent}" />
+    </Style>
+  </UserControl.Styles>
+  
+  <TabControl>
+    <TabItem Header="Overview">
+      <StackPanel>
+        <TextBlock FontSize="24" Text="Hello world :o" FontWeight="Bold"/>
+        <TextBlock Text="Block of normal text"/>
+        <TextBlock Margin="0,0,0,10" Text="Block of secondary text" Foreground="{DynamicResource SecondaryTextColor}" FontSize="12"/>
+        <WrapPanel>
+          <StackPanel Spacing="5">
+            <TextBlock Text="Buttons" FontWeight="Bold"/>
+            <Button>Enabled</Button>
+            <Button>Enabled</Button>
+            <Button Classes="controlcolored">Enabled</Button>
+            <Button Classes="controlcolored">Enabled</Button>
+            <Button IsEnabled="False">Disabled</Button>
+          </StackPanel>
+          <StackPanel Margin="10,0,0,0" Spacing="5">
+            <TextBlock Text="Text Boxes" FontWeight="Bold"/>
+            <TextBox/>
+            <TextBox Watermark="Text box with watermark"/>
+            <TextBox Watermark="Disabled" IsEnabled="False"/>
+          </StackPanel>
+          <StackPanel Margin="10,0,0,0" Spacing="5">
+            <TextBlock Text="Checkboxes" FontWeight="Bold"/>
+            <CheckBox>Hey nyaa</CheckBox>
+            <CheckBox IsChecked="True">Hey nyaa</CheckBox>
+            <CheckBox IsChecked="True" IsEnabled="False">Disabled</CheckBox>
+          </StackPanel>
+          <StackPanel Margin="10,0,0,0" Spacing="5">
+            <TextBlock Text="Radio Buttons" FontWeight="Bold"/>
+            <RadioButton>Option 1</RadioButton>
+            <RadioButton IsChecked="True">Option 2</RadioButton>
+            <RadioButton GroupName="a" IsEnabled="False">Disabled Option 1</RadioButton>
+            <RadioButton GroupName="a" IsChecked="True" IsEnabled="False">Disabled Option 2</RadioButton>
+          </StackPanel>
+          <StackPanel Margin="10,0,0,0" Spacing="5">
+            <TextBlock Text="Combo Boxes" FontWeight="Bold"/>
+            <ComboBox SelectedIndex="0">
+              <ComboBoxItem>Option 1</ComboBoxItem>
+              <ComboBoxItem>Option 2</ComboBoxItem>
+              <ComboBoxItem>Option 3</ComboBoxItem>
+            </ComboBox>
+            <ComboBox>
+              <ComboBoxItem>Catgirls</ComboBoxItem>
+              <ComboBoxItem>Doggirls</ComboBoxItem>
+              <ComboBoxItem>Foxgirls</ComboBoxItem>
+            </ComboBox>
+            <ComboBox IsEnabled="False">
+              <ComboBoxItem>Catgirls</ComboBoxItem>
+              <ComboBoxItem>Doggirls</ComboBoxItem>
+              <ComboBoxItem>Foxgirls</ComboBoxItem>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel Margin="10,0,0,0" Spacing="5">
+            <ListBox>
+              <ListBoxItem>Test</ListBoxItem>
+              <ListBoxItem>Test</ListBoxItem>
+              <ListBoxItem>Test</ListBoxItem>
+              <ListBoxItem>Test</ListBoxItem>
+            </ListBox>
+          </StackPanel>
+        </WrapPanel>
+      </StackPanel>
+     
+    </TabItem>
+  </TabControl>
+</UserControl>
